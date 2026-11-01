@@ -1,0 +1,13 @@
+{
+    "name": "system24",
+    "description": "tui-style theme ported from refact0r's system24 discord theme: square panels, 2px borders, panel labels, DM Mono. Schemes: system24 (purple) and bloodmoon.",
+    "preview": "preview.png",
+    "readme": "README.md",
+    "usercss": "user.css",
+    "schemes": "color.ini",
+    "authors": [
+        { "name": "OkilSaber", "url": "https://github.com/OkilSaber" },
+        { "name": "refact0r (system24)", "url": "https://github.com/refact0r" }
+    ],
+    "tags": ["dark", "minimal", "tui", "monospace"]
+}

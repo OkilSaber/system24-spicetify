@@ -1,5 +1,7 @@
 # system24 for spicetify
 
+![preview](preview.png)
+
 A port of [refact0r's system24](https://github.com/refact0r/system24) Discord theme to [Spicetify](https://spicetify.app): tui-style square panels separated by gaps, 2px borders that light up on hover, panel labels sitting on the borders, DM Mono, and ascii titles on playlist, album and artist headers.
 
 Built against Spotify 1.3.6 and Spicetify 2.46.4. Spotify 1.3.6 obfuscates most class names and Spicetify doesn't remap them yet, so the theme hooks onto ids and `data-testid` attributes instead.
@@ -10,6 +12,10 @@ Built against Spotify 1.3.6 and Spicetify 2.46.4. Spotify 1.3.6 obfuscates most 
 - `bloodmoon`: the BloodMoon colors from the spicetify [text](https://github.com/spicetify/spicetify-themes/tree/master/text) theme
 
 ## Install
+
+From the [Spicetify Marketplace](https://github.com/spicetify/marketplace): search for system24 in the Themes tab.
+
+Manually:
 
 ```bash
 git clone https://github.com/OkilSaber/system24-spicetify ~/.config/spicetify/Themes/system24

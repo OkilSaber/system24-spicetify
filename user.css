@@ -252,7 +252,12 @@ div:has(> #global-nav-bar) {
     position: absolute;
     top: -10px;
     left: 8px;
-    padding: 0 4px;
+    /* spacing comes from spaces in the content so max-width can shrink the label to nothing
+       when its panel is collapsed (e.g. by an auto-hide library snippet) */
+    padding: 0;
+    max-width: calc(100% - 16px);
+    overflow: hidden;
+    white-space: pre;
     z-index: 100;
     color: var(--label-color);
     background-color: var(--bg-4);
@@ -275,19 +280,19 @@ div:has(> #global-nav-bar) {
 }
 
 #Desktop_LeftSidebar_Id::after {
-    content: 'library';
+    content: ' library ';
 }
 #main-view::after {
-    content: 'main';
+    content: ' main ';
 }
 .Root__right-sidebar-peek::after {
-    content: 'sidebar';
+    content: ' sidebar ';
 }
 [data-testid='now-playing-bar']::after {
-    content: 'player';
+    content: ' player ';
 }
 #global-nav-bar form::after {
-    content: 'search';
+    content: ' search ';
 }
 
 /* hide the sidebar border/label when the right sidebar is closed */
