@@ -1,0 +1,571 @@
+/**
+ * system24 for spicetify
+ * port of refact0r's system24 discord theme (https://github.com/refact0r/system24)
+ * tui-style: square panels, 2px borders, panel labels, DM Mono, purple accent.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
+@font-face {
+    font-family: 'asciid';
+    font-style: normal;
+    font-weight: 400;
+    src: local('asciid'), url('https://refact0r.github.io/system24/assets/asciid.woff') format('woff');
+}
+
+:root {
+    /* font */
+    --font: 'DM Mono';
+    --font-weight: 300; /* 300 light, 400 normal. does not affect bold text */
+    --letter-spacing: -0.05ch;
+
+    /* sizes */
+    --gap: 12px; /* spacing between panels */
+    --border-thickness: 2px; /* thickness of borders around main panels */
+    --border-hover-transition: 0.2s ease;
+
+    /* panel labels */
+    --label-color: var(--spice-label);
+    --label-hover-color: var(--border-hover);
+    --label-font-weight: 500;
+    --label-size: 14px;
+
+    /* ascii titles on playlist/album/artist headers: on | off */
+    --ascii-titles: on;
+
+    /* oneko cat on the progress bar: on | off */
+    --oneko: on;
+
+    /* palette: comes from the scheme picked in color.ini (system24, bloodmoon...) */
+
+    /* text colors */
+    --text-0: var(--bg-4); /* text on colored elements */
+    --text-1: color-mix(in oklch, var(--spice-text), white 30%); /* other normally white text */
+    --text-2: var(--spice-text); /* headings and important text */
+    --text-3: color-mix(in oklch, var(--spice-text), var(--spice-subtext)); /* normal text */
+    --text-4: var(--spice-subtext); /* icon buttons and subdued text */
+    --text-5: var(--spice-misc); /* muted text */
+
+    /* background and dark colors */
+    --bg-1: var(--spice-highlight-elevated); /* dark buttons when clicked */
+    --bg-2: var(--spice-highlight); /* dark buttons */
+    --bg-3: var(--spice-sidebar); /* gaps between panels, secondary elements */
+    --bg-4: var(--spice-main); /* main background color */
+    --hover: rgba(var(--spice-rgb-highlight), 0.5); /* rows and buttons when hovered */
+    --active: var(--spice-highlight); /* rows and buttons when clicked or selected */
+    --active-2: var(--spice-highlight-elevated); /* extra state for transparent buttons */
+    --banner: var(--spice-banner); /* ascii titles */
+
+    /* accent colors */
+    --accent-1: color-mix(in oklch, var(--spice-button-active), white 15%); /* links and other accent text */
+    --accent-2: var(--spice-button-active); /* small accent elements */
+    --accent-3: var(--spice-button); /* accent buttons */
+    --accent-4: color-mix(in oklch, var(--spice-button), black 10%); /* accent buttons when hovered */
+    --accent-5: color-mix(in oklch, var(--spice-button), black 20%); /* accent buttons when clicked */
+    --accent-new: var(--spice-notification-error); /* stuff that's normally red */
+
+    /* border colors */
+    --border-light: var(--hover);
+    --border: var(--spice-border);
+    --border-hover: var(--spice-border-hover);
+    --button-border: hsl(220, 0%, 100%, 0.1);
+
+    /* base colors */
+    --red-1: oklch(75% 0.13 0);
+    --red-2: oklch(70% 0.13 0);
+    --red-3: oklch(65% 0.13 0);
+    --red-4: oklch(60% 0.13 0);
+    --red-5: oklch(55% 0.13 0);
+
+    --green-1: oklch(75% 0.12 170);
+    --green-2: oklch(70% 0.12 170);
+    --green-3: oklch(65% 0.12 170);
+    --green-4: oklch(60% 0.12 170);
+    --green-5: oklch(55% 0.12 160);
+
+    --blue-1: oklch(75% 0.11 215);
+    --blue-2: oklch(70% 0.11 215);
+    --blue-3: oklch(65% 0.11 215);
+    --blue-4: oklch(60% 0.11 215);
+    --blue-5: oklch(55% 0.11 215);
+
+    --yellow-1: oklch(80% 0.12 90);
+    --yellow-2: oklch(75% 0.12 90);
+    --yellow-3: oklch(70% 0.12 90);
+    --yellow-4: oklch(65% 0.12 90);
+    --yellow-5: oklch(60% 0.12 90);
+
+    --purple-1: oklch(75% 0.12 310);
+    --purple-2: oklch(70% 0.12 310);
+    --purple-3: oklch(65% 0.12 310);
+    --purple-4: oklch(60% 0.12 310);
+    --purple-5: oklch(55% 0.12 310);
+}
+
+/* ============ colors ============ */
+
+.encore-dark-theme,
+.encore-dark-theme .encore-base-set,
+.encore-dark-theme .encore-muted-accent-set,
+.encore-dark-theme .encore-over-media-set {
+    --background-base: var(--bg-4);
+    --background-highlight: var(--hover);
+    --background-press: var(--active);
+    --background-elevated-base: var(--bg-3);
+    --background-elevated-highlight: var(--bg-2);
+    --background-elevated-press: var(--bg-1);
+    --background-tinted-base: var(--hover);
+    --background-tinted-highlight: var(--active);
+    --background-tinted-press: var(--active-2);
+    --background-unsafe-for-small-text-base: var(--bg-4);
+    --text-base: var(--text-2);
+    --text-subdued: var(--text-4);
+    --text-bright-accent: var(--accent-1);
+    --text-negative: var(--red-1);
+    --text-warning: var(--yellow-1);
+    --text-positive: var(--green-1);
+    --text-announcement: var(--blue-1);
+    --essential-base: var(--text-2);
+    --essential-subdued: var(--text-5);
+    --essential-bright-accent: var(--accent-2);
+    --essential-negative: var(--red-2);
+    --essential-warning: var(--yellow-2);
+    --essential-positive: var(--green-2);
+    --essential-announcement: var(--blue-2);
+    --decorative-base: var(--text-2);
+    --decorative-subdued: var(--bg-1);
+}
+
+/* play buttons and other "green" things */
+.encore-dark-theme .encore-bright-accent-set {
+    --background-base: var(--accent-3);
+    --background-highlight: var(--accent-4);
+    --background-press: var(--accent-5);
+    --background-elevated-base: var(--accent-3);
+    --background-elevated-highlight: var(--accent-4);
+    --background-elevated-press: var(--accent-5);
+    --text-base: var(--text-0);
+    --essential-base: var(--text-0);
+}
+
+/* white buttons (chips, primary buttons) */
+.encore-dark-theme .encore-inverted-light-set {
+    --background-base: var(--text-2);
+    --background-highlight: var(--text-1);
+    --background-press: var(--text-3);
+    --text-base: var(--text-0);
+    --essential-base: var(--text-0);
+}
+
+::selection {
+    background-color: color-mix(in hsl, var(--accent-2), transparent 60%);
+}
+
+a:hover {
+    text-decoration-color: var(--accent-2);
+}
+
+/* ============ font ============ */
+
+:root,
+.encore-layout-themes,
+.encore-dark-theme {
+    --encore-body-font-stack: var(--font), 'DM Mono', monospace !important;
+    --encore-title-font-stack: var(--font), 'DM Mono', monospace !important;
+    --encore-variable-font-stack: var(--font), 'DM Mono', monospace !important;
+}
+
+body,
+body *:not(.spicy-lyrics *, #SpicyLyricsPage *) {
+    font-family: var(--font), 'DM Mono', monospace !important;
+    letter-spacing: var(--letter-spacing);
+}
+
+body,
+[class*='encore-text-body']:not([class*='bold']),
+.encore-text-marginal,
+.e-10860-form-input,
+input {
+    font-weight: var(--font-weight) !important;
+}
+
+/* ============ unrounding ============ */
+
+*,
+*::before,
+*::after {
+    border-radius: 0 !important;
+}
+
+/* ============ layout ============ */
+
+/* root grid: panels separated by --gap over the --bg-3 frame */
+div:has(> #global-nav-bar) {
+    --panel-gap: var(--gap) !important;
+    background-color: var(--bg-3) !important;
+}
+
+#global-nav-bar {
+    background-color: transparent !important;
+}
+
+/* main panels */
+#Desktop_LeftSidebar_Id,
+#main-view,
+.Root__right-sidebar-peek,
+[data-testid='now-playing-bar'] {
+    position: relative;
+    overflow: visible !important;
+    background-color: var(--bg-4) !important;
+    border: var(--border-thickness) solid var(--border);
+    box-sizing: border-box;
+    transition: border-color var(--border-hover-transition);
+}
+
+#Desktop_LeftSidebar_Id:hover,
+#main-view:hover,
+.Root__right-sidebar-peek:hover,
+[data-testid='now-playing-bar']:hover,
+#global-nav-bar form:focus-within,
+#global-nav-bar form:hover {
+    border-color: var(--border-hover);
+}
+
+#Desktop_LeftSidebar_Id *,
+#main-view > *,
+.Root__right-sidebar-peek * {
+    background-color: transparent;
+}
+#Desktop_LeftSidebar_Id nav > div,
+.Root__right-sidebar-peek > div,
+.Root__right-sidebar-peek > div > div {
+    background-color: var(--bg-4) !important;
+}
+
+/* panel labels */
+#Desktop_LeftSidebar_Id::after,
+#main-view::after,
+.Root__right-sidebar-peek::after,
+[data-testid='now-playing-bar']::after,
+#global-nav-bar form::after {
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    padding: 0 4px;
+    z-index: 100;
+    color: var(--label-color);
+    background-color: var(--bg-4);
+    font-family: var(--font), 'DM Mono', monospace;
+    font-size: var(--label-size);
+    font-weight: var(--label-font-weight);
+    line-height: 18px;
+    letter-spacing: var(--letter-spacing);
+    pointer-events: none;
+    transition: color var(--border-hover-transition);
+}
+
+#Desktop_LeftSidebar_Id:hover::after,
+#main-view:hover::after,
+.Root__right-sidebar-peek:hover::after,
+[data-testid='now-playing-bar']:hover::after,
+#global-nav-bar form:hover::after,
+#global-nav-bar form:focus-within::after {
+    color: var(--label-hover-color);
+}
+
+#Desktop_LeftSidebar_Id::after {
+    content: 'library';
+}
+#main-view::after {
+    content: 'main';
+}
+.Root__right-sidebar-peek::after {
+    content: 'sidebar';
+}
+[data-testid='now-playing-bar']::after {
+    content: 'player';
+}
+#global-nav-bar form::after {
+    content: 'search';
+}
+
+/* hide the sidebar border/label when the right sidebar is closed */
+.Root__right-sidebar-peek:not(.Root__right-sidebar-expanded) {
+    border: none;
+}
+.Root__right-sidebar-peek:not(.Root__right-sidebar-expanded)::after {
+    display: none;
+}
+
+/* resize handles sit in the gap */
+.LayoutResizer__resize-bar {
+    cursor: col-resize;
+}
+
+/* ============ top bar ============ */
+
+#global-nav-bar form {
+    position: relative;
+}
+#global-nav-bar form > div,
+#global-nav-bar input {
+    background-color: var(--bg-4) !important;
+    box-shadow: none !important;
+}
+#global-nav-bar form {
+    border: var(--border-thickness) solid var(--border);
+    background-color: var(--bg-4);
+    transition: border-color var(--border-hover-transition);
+}
+#global-nav-bar input {
+    color: var(--text-2);
+    border: none !important;
+}
+#global-nav-bar input::placeholder {
+    color: var(--text-5);
+}
+#global-nav-bar button {
+    background-color: transparent;
+}
+
+/* ============ player ============ */
+
+[data-testid='now-playing-bar'] > div {
+    background-color: transparent !important;
+}
+
+/* text-like progress bar: tall block with the timestamps drawn inside */
+.playback-progressbar {
+    --bar-size: 22px;
+}
+div:has(> [data-testid='playback-position']):has(> [data-testid='playback-duration']),
+div:has(> [data-testid='playback-progressbar']):has(+ [data-testid='playback-duration']) {
+    position: relative;
+}
+[data-testid='playback-progressbar'] .progress-bar {
+    --fg-color: var(--accent-2) !important;
+    --bg-color: var(--bg-3) !important;
+    --progress-bar-height: 22px !important;
+    --progress-bar-radius: 0px !important;
+    height: 22px !important;
+}
+[data-testid='playback-progressbar'] .x-progressBar-progressBarBg {
+    height: 22px !important;
+    background-color: var(--bg-3) !important;
+}
+[data-testid='playback-progressbar'] .x-progressBar-sliderArea,
+[data-testid='playback-progressbar'] .x-progressBar-fillColor,
+[data-testid='playback-progressbar'] .x-progressBar-progressFillColor {
+    height: 22px !important;
+}
+[data-testid='playback-progressbar'] .x-progressBar-fillColor {
+    background-color: var(--accent-2) !important;
+}
+[data-testid='playback-progressbar']:hover {
+    cursor: col-resize;
+}
+[data-testid='playback-progressbar'] .progress-bar__slider {
+    visibility: hidden !important;
+}
+[data-testid='playback-position'],
+[data-testid='playback-duration'] {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    min-width: 0 !important;
+    color: var(--text-1) !important;
+    mix-blend-mode: difference;
+    font-size: 14px !important;
+    line-height: 22px;
+    pointer-events: none;
+}
+[data-testid='playback-position'] {
+    left: 6px;
+    text-align: left !important;
+}
+[data-testid='playback-duration'] {
+    right: 6px;
+    text-align: right !important;
+}
+
+/* oneko: the marketplace snippet targets .player-controls, gone since spotify 1.3.6 */
+@container style(--oneko: on) {
+    [data-testid='player-controls'] [data-testid='playback-progressbar'] {
+        position: relative;
+    }
+    [data-testid='player-controls'] [data-testid='playback-progressbar']::before {
+        content: '';
+        position: absolute;
+        right: 56px; /* clear of the duration drawn inside the bar */
+        bottom: calc(100% - 7px);
+        z-index: 2;
+        width: 32px;
+        height: 32px;
+        image-rendering: pixelated;
+        background-image: url('https://raw.githubusercontent.com/adryd325/oneko.js/14bab15a755d0e35cd4ae19c931d96d306f99f42/oneko.gif');
+        animation: s24-oneko 1s infinite;
+        pointer-events: none;
+    }
+}
+@keyframes s24-oneko {
+    0%,
+    50% {
+        background-position: -64px 0;
+    }
+    50.0001%,
+    100% {
+        background-position: -64px -32px;
+    }
+}
+
+/* volume bar: same flat block style, thinner */
+[data-testid='volume-bar'] .progress-bar {
+    --fg-color: var(--accent-2) !important;
+    --bg-color: var(--bg-3) !important;
+}
+[data-testid='volume-bar'] .x-progressBar-fillColor {
+    background-color: var(--accent-2) !important;
+}
+
+/* play button: flat outline instead of the white circle */
+[data-testid='control-button-playpause'] > span {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+[data-testid='control-button-playpause'] {
+    background-color: transparent !important;
+    color: var(--text-2) !important;
+    border: var(--border-thickness) solid var(--border) !important;
+    transition: border-color var(--border-hover-transition), color var(--border-hover-transition);
+}
+[data-testid='control-button-playpause']:hover {
+    transform: none !important;
+    border-color: var(--accent-2) !important;
+    color: var(--accent-1) !important;
+}
+
+/* active toggles (shuffle/repeat/lyrics/queue) use the accent */
+[data-testid='now-playing-bar'] button[aria-checked='true'],
+[data-testid='now-playing-bar'] button[data-active='true'] {
+    color: var(--accent-2) !important;
+}
+
+/* ============ main view ============ */
+
+/* flatten the big gradients behind headers */
+#main-view [style*='background-color'],
+#main-view [style*='background-image'] {
+    background-image: none !important;
+}
+#main-view div[style*='background-color']:not([class*='card'] *):not([class*='Shortcut'] *),
+.main-entityHeader-backgroundColor,
+.main-entityHeader-overlay,
+.main-actionBarBackground-background {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+/* cover-tinted header banners and gradients */
+#main-view [style*='--background-base'] {
+    --background-base: var(--bg-4) !important;
+    --background-highlight: var(--hover) !important;
+    --background-press: var(--active) !important;
+    background-image: none !important;
+}
+
+/* sticky top bar when scrolled */
+.main-topBar-background {
+    background-color: var(--bg-4) !important;
+}
+
+/* no cover-colored backgrounds in the sidebar (spicy lyrics) */
+.Root__right-sidebar-peek canvas.spicy-dynamic-bg {
+    display: none !important;
+}
+.Root__right-sidebar-peek .spicy-dynamic-bg-in-this::before {
+    background: var(--bg-4) !important;
+}
+
+/* ascii titles */
+@container style(--ascii-titles: on) {
+    #main-view .main-entityHeader-title h1 {
+        font-family: 'asciid', var(--font), monospace !important;
+        font-size: 56px !important;
+        color: var(--banner) !important;
+        font-weight: 400 !important;
+        letter-spacing: 0 !important;
+    }
+}
+
+/* cards and rows */
+.main-card-cardContainer:hover,
+[role='row']:hover,
+[role='row']:focus-within {
+    background-color: var(--hover) !important;
+}
+[role='row'][aria-selected='true'] {
+    background-color: var(--active) !important;
+}
+
+/* filter chips: outlined boxes */
+.e-10860-legacy-chip__inner,
+button[role='checkbox'] > span {
+    background-color: transparent !important;
+    color: var(--text-3) !important;
+    border: 1px solid var(--border) !important;
+    font-weight: var(--font-weight) !important;
+}
+.e-10860-legacy-chip__inner:hover {
+    border-color: var(--text-5) !important;
+    background-color: var(--hover) !important;
+}
+.e-10860-legacy-chip__inner--selected,
+button[role='checkbox'][aria-checked='true'] > span {
+    background-color: var(--accent-2) !important;
+    border-color: var(--accent-2) !important;
+    color: var(--text-0) !important;
+}
+
+/* ============ popouts ============ */
+
+#context-menu > ul,
+#context-menu > div > ul,
+#context-menu ul[role='menu'],
+[role='menu'],
+[role='dialog'],
+[role='tooltip'],
+.GenericModal {
+    background-color: var(--bg-4) !important;
+    border: var(--border-thickness) solid var(--border-hover) !important;
+    box-shadow: none !important;
+}
+[role='menuitem']:hover,
+[role='menuitem']:focus,
+[role='menuitemcheckbox']:hover,
+[role='menuitemradio']:hover {
+    background-color: var(--hover) !important;
+}
+[role='separator'],
+hr {
+    border-color: var(--border) !important;
+}
+
+/* ============ scrollbars ============ */
+
+.os-scrollbar .os-scrollbar-handle {
+    background: var(--bg-1) !important;
+}
+.os-scrollbar .os-scrollbar-handle:hover {
+    background: var(--text-5) !important;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-1);
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
