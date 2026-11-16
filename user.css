@@ -107,7 +107,13 @@
 .encore-dark-theme,
 .encore-dark-theme .encore-base-set,
 .encore-dark-theme .encore-muted-accent-set,
-.encore-dark-theme .encore-over-media-set {
+.encore-dark-theme .encore-over-media-set,
+/* some dialogs (e.g. "already added") use spotify's light set: keep them dark too */
+.encore-light-theme,
+.encore-light-theme .encore-base-set,
+.encore-light-theme .encore-muted-accent-set,
+.encore-light-theme .encore-over-media-set {
+    color-scheme: dark;
     --background-base: var(--bg-4);
     --background-highlight: var(--hover);
     --background-press: var(--active);
@@ -137,7 +143,8 @@
 }
 
 /* play buttons and other "green" things */
-.encore-dark-theme .encore-bright-accent-set {
+.encore-dark-theme .encore-bright-accent-set,
+.encore-light-theme .encore-bright-accent-set {
     --background-base: var(--accent-3);
     --background-highlight: var(--accent-4);
     --background-press: var(--accent-5);
@@ -149,12 +156,17 @@
 }
 
 /* white buttons (chips, primary buttons) */
-.encore-dark-theme .encore-inverted-light-set {
+.encore-dark-theme .encore-inverted-light-set,
+.encore-light-theme .encore-inverted-light-set {
     --background-base: var(--text-2);
     --background-highlight: var(--text-1);
     --background-press: var(--text-3);
     --text-base: var(--text-0);
     --essential-base: var(--text-0);
+}
+
+:focus-visible {
+    outline-color: var(--accent-1) !important;
 }
 
 ::selection {
@@ -494,7 +506,8 @@ div:has(> [data-testid='playback-progressbar']):has(+ [data-testid='playback-dur
 
 /* ascii titles */
 @container style(--ascii-titles: on) {
-    #main-view .main-entityHeader-title h1 {
+    /* theme.js folds accents (é -> e) and marks titles it can't fold with data-s24-ascii="off" */
+    #main-view .main-entityHeader-title h1:not([data-s24-ascii='off']) {
         font-family: 'asciid', var(--font), monospace !important;
         font-size: 56px !important;
         color: var(--banner) !important;

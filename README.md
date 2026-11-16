@@ -37,6 +37,8 @@ At the top of `user.css`:
 - `--ascii-titles: on | off`: ascii font on headers
 - `--oneko: on | off`: the [oneko](https://github.com/adryd325/oneko.js) cat sitting on the progress bar (the marketplace snippet no longer works on Spotify 1.3.6)
 
+`theme.js` (loaded automatically, needs `inject_theme_js = 1` for a manual install) strips accents from header titles (é → e) because the ascii font only has ascii glyphs; titles that are still not ascii keep the regular font.
+
 The cover-colored backgrounds of the Spicy Lyrics extension are hidden to keep the flat look; remove the `spicy-dynamic-bg` block to get them back.
 
 ## Credits

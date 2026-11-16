@@ -6,8 +6,22 @@
     "usercss": "user.css",
     "schemes": "color.ini",
     "authors": [
-        { "name": "OkilSaber", "url": "https://github.com/OkilSaber" },
-        { "name": "refact0r (system24)", "url": "https://github.com/refact0r" }
+        {
+            "name": "OkilSaber",
+            "url": "https://github.com/OkilSaber"
+        },
+        {
+            "name": "refact0r (system24)",
+            "url": "https://github.com/refact0r"
+        }
     ],
-    "tags": ["dark", "minimal", "tui", "monospace"]
+    "tags": [
+        "dark",
+        "minimal",
+        "tui",
+        "monospace"
+    ],
+    "include": [
+        "https://raw.githubusercontent.com/OkilSaber/system24-spicetify/main/theme.js"
+    ]
 }
